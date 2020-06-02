@@ -10,6 +10,7 @@ import { CoreModule } from './core/core.module';
 import { ShellModule } from './shell/shell.module';
 import { SharedModule } from './shared/shared.module';
 import { ConfigService } from './shared/config.service';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -17,12 +18,14 @@ import { ConfigService } from './shared/config.service';
     AuthCallbackComponent
   ],
   imports: [
-    BrowserModule,
-    HttpClientModule,
+    BrowserModule,  
+    HttpClientModule, 
     CoreModule,
+    HomeModule,
     AccountModule,
+   // TopSecretModule,   
     AppRoutingModule,
-    ShellModule,
+    ShellModule,   
     SharedModule
   ],
   providers: [

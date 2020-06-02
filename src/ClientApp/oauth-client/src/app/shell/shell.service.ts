@@ -7,7 +7,7 @@ import { ShellComponent } from './shell.component';
 })
 
 //Provides helper methods to create routes
-export class ShellService {
+export class Shell {
 
   constructor() { }
   static childRoutes(routes: Routes): Route {
