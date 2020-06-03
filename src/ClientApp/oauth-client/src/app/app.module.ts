@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AccountModule } from './account/account.module';
@@ -11,6 +12,8 @@ import { ShellModule } from './shell/shell.module';
 import { SharedModule } from './shared/shared.module';
 import { ConfigService } from './shared/config.service';
 import { HomeModule } from './home/home.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -18,16 +21,20 @@ import { HomeModule } from './home/home.module';
     AuthCallbackComponent
   ],
   imports: [
-    BrowserModule,  
-    HttpClientModule, 
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
     CoreModule,
     HomeModule,
     AccountModule,
-   // TopSecretModule,   
+    // TopSecretModule,   
     AppRoutingModule,
-    ShellModule,   
-    SharedModule
+    ShellModule,
+    SharedModule,
+    NgxSpinnerModule,
+    RouterModule
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     ConfigService
   ],
