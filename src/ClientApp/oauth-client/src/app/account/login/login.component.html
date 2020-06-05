@@ -1,1 +1,10 @@
-<p>login works!</p>
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h1 class="mt-5">{{title}}</h1>
+        <p class="lead">This step uses the <a href="https://docs.identityserver.io/en/aspnetcore2/topics/grant_types.html#authorization-code" target="_blank">Authorization Code type</a> and redirects to the IdentityServer instance to perform the authentication step.   Before you can login here, you must <a routerLink="/register">register a new account</a>.</p>
+        <img src="assets/images/open-identity.png" width="175" class="mb-4" />
+        <p>
+            <button class="btn btn-lg btn-primary" (click)="login()">Login with IdentityServer</button>
+        </p>     
+      </div>
+  </div>
