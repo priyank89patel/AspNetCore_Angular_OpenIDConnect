@@ -14,6 +14,7 @@ import { ConfigService } from './shared/config.service';
 import { HomeModule } from './home/home.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
+import { TopSecretModule } from './top-secret/top-secret.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,7 @@ import { RouterModule } from '@angular/router';
     CoreModule,
     HomeModule,
     AccountModule,
-    // TopSecretModule,   
+    TopSecretModule,   
     AppRoutingModule,
     ShellModule,
     SharedModule,

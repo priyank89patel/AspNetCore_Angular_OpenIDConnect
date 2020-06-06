@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from 'src/app/shared/base.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User, UserManagerSettings, UserManager } from 'oidc-client';
@@ -11,11 +11,15 @@ import { ConfigService } from 'src/app/shared/config.service';
 })
 export class AuthService extends BaseService {
 
+  // Observable navItem source
   private _authNavStatusSource = new BehaviorSubject<boolean>(false);
+  // Observable navItem stream
   authNavStatus$ = this._authNavStatusSource.asObservable();
+
   private manager = new UserManager(getClientSettings());
   private user: User | null;
-  constructor(private httpClient: HttpClient, private configService: ConfigService) {
+
+  constructor(private http: HttpClient, private configService: ConfigService) {
     super();
 
     this.manager.getUser().then(user => {
@@ -25,7 +29,7 @@ export class AuthService extends BaseService {
   }
 
   login() {
-    this.manager.signinRedirect();
+    return this.manager.signinRedirect();
   }
 
   async completeAuthentication() {
@@ -34,16 +38,14 @@ export class AuthService extends BaseService {
   }
 
   register(userRegistration: any) {
-    return this.httpClient.post(`${this.configService.authApiURI}/account`, userRegistration)
-      .pipe(catchError(this.handleError))
+    return this.http.post(this.configService.authApiURI + '/account', userRegistration).pipe(catchError(this.handleError));
   }
-
 
   isAuthenticated(): boolean {
     return this.user != null && !this.user.expired;
   }
 
-  getAuthorizationHeaderValue(): string {
+  get authorizationHeaderValue(): string {
     return `${this.user.token_type} ${this.user.access_token}`;
   }
 
