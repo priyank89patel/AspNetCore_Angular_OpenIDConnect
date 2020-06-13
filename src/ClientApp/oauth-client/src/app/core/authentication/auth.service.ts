@@ -72,6 +72,7 @@ export function getClientSettings(): UserManagerSettings {
     loadUserInfo: true,
     automaticSilentRenew: true,
     silent_redirect_uri: 'http://localhost:4200/silent_refresh.html'
+    //prompt:'none'
   };
 }
 
