@@ -35,17 +35,17 @@ namespace AuthServer
             {
                 new Client
                 {
-                    RequireConsent = true,
+                    RequireConsent = false,
                     ClientId = "angular_spa",
                     ClientName = "Angular SPA",
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce=true,
                     RequireClientSecret=false,
                     AllowedScopes = { "openid", "profile", "email", "api.read" },
-                    RedirectUris ={"http://localhost:4200/auth-callback"},
+                    RedirectUris ={"http://localhost:4200/auth-callback","http://localhost:4200/silent_refresh.html"},
                     PostLogoutRedirectUris ={"http://localhost:4200"},
                     AllowedCorsOrigins = {"http://localhost:4200"},
-                    AccessTokenLifetime = 3600
+                    AccessTokenLifetime = 80,
                 }
             };
         }
