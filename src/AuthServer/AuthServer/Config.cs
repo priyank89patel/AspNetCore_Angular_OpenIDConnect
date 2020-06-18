@@ -42,7 +42,7 @@ namespace AuthServer
                     RequirePkce=true,
                     RequireClientSecret=false,
                     AllowedScopes = { "openid", "profile", "email", "api.read" },
-                    RedirectUris ={"http://localhost:4200/auth-callback","http://localhost:4200/silent_refresh.html"},
+                    RedirectUris ={"http://localhost:4200/auth-callback","http://localhost:4200/assets/silent_refresh.html"},
                     PostLogoutRedirectUris ={"http://localhost:4200"},
                     AllowedCorsOrigins = {"http://localhost:4200"},
                     AccessTokenLifetime = 80,
