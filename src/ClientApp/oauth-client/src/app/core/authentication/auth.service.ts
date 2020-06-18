@@ -22,6 +22,8 @@ export class AuthService extends BaseService {
   constructor(private http: HttpClient, private configService: ConfigService) {
     super();
 
+    //Register access token expiring event
+    this.manager.events.addAccessTokenExpiring(this.silentRenew.bind(this));
     this.manager.getUser().then(user => {
       this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
@@ -56,6 +58,10 @@ export class AuthService extends BaseService {
   async signOut() {
     await this.manager.signoutRedirect();
   }
+
+  async silentRenew() {
+    await this.manager.signinSilent();
+  }
 }
 
 
@@ -70,9 +76,8 @@ export function getClientSettings(): UserManagerSettings {
     scope: 'openid profile email api.read',
     filterProtocolClaims: true,
     loadUserInfo: true,
-    automaticSilentRenew: true,
-    silent_redirect_uri: 'http://localhost:4200/silent_refresh.html'
-    //prompt:'none'
+    automaticSilentRenew: false,
+    silent_redirect_uri: 'http://localhost:4200/assets/silent_refresh.html'
   };
 }
 

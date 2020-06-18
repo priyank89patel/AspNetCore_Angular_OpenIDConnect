@@ -4,7 +4,7 @@
 <body>
 <script src="./scripts/oidc-client.min.js"></script>
 <script>
-    new UserManager().signinSilentCallback()
+    new Oidc.UserManager().signinSilentCallback()
         .catch((err) => {
             console.log(err);
         });
