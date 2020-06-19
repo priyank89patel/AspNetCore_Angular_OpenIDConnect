@@ -15,6 +15,7 @@ import { HomeModule } from './home/home.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { RouterModule } from '@angular/router';
 import { TopSecretModule } from './top-secret/top-secret.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TopSecretModule } from './top-secret/top-secret.module';
     ShellModule,
     SharedModule,
     NgxSpinnerModule,
-    RouterModule
+    RouterModule,
+    NgbModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
