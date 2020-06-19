@@ -5,6 +5,8 @@ import { catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { User, UserManagerSettings, UserManager } from 'oidc-client';
 import { ConfigService } from 'src/app/shared/config.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SessionExpiringComponent } from 'src/app/account/session-expiring/session-expiring.component';
 
 @Injectable({
   providedIn: 'root'
@@ -19,11 +21,12 @@ export class AuthService extends BaseService {
   private manager = new UserManager(getClientSettings());
   private user: User | null;
 
-  constructor(private http: HttpClient, private configService: ConfigService) {
+  constructor(private http: HttpClient, private configService: ConfigService,
+    private modalService:NgbModal) {
     super();
 
     //Register access token expiring event
-    this.manager.events.addAccessTokenExpiring(this.silentRenew.bind(this));
+    this.manager.events.addAccessTokenExpiring(this.showSessionExpiringPopup.bind(this));
     this.manager.getUser().then(user => {
       this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
@@ -61,6 +64,10 @@ export class AuthService extends BaseService {
 
   async silentRenew() {
     await this.manager.signinSilent();
+  }
+
+  showSessionExpiringPopup(){
+    this.modalService.open(SessionExpiringComponent);
   }
 }
 
