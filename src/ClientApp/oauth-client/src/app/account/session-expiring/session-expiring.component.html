@@ -5,9 +5,9 @@
     </button>
 </div>
 <div class="modal-body">
-    <strong>Warning!</strong> Your current session is expiring in <b class="alert-danger">{{counter}}</b>.
+    <strong>Warning!</strong> Your current session is expiring in <b class="alert-danger">{{sessionExpiresIn}}</b>.
 </div>
 <div class="modal-footer">
     <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
-    <button type="button" class="btn btn-md btn-primary" (click)="activeModal.close('Close click')">Extend Session</button>
+    <button type="button" class="btn btn-md btn-primary" (click)="extendSession()">Extend Session</button>
 </div>

@@ -22,11 +22,12 @@ export class AuthService extends BaseService {
   private user: User | null;
 
   constructor(private http: HttpClient, private configService: ConfigService,
-    private modalService:NgbModal) {
+    private modalService: NgbModal) {
     super();
 
-    //Register access token expiring event
-    this.manager.events.addAccessTokenExpiring(this.showSessionExpiringPopup.bind(this));
+    //Register events
+    this.manager.events.addAccessTokenExpiring(this.sessionExpiring.bind(this));
+    this.manager.events.addAccessTokenExpired(this.sessionExpired.bind(this));
     this.manager.getUser().then(user => {
       this.user = user;
       this._authNavStatusSource.next(this.isAuthenticated());
@@ -63,11 +64,22 @@ export class AuthService extends BaseService {
   }
 
   async silentRenew() {
-    await this.manager.signinSilent();
+    this.manager.signinSilent().then(user => {
+      this.user = user;
+      this._authNavStatusSource.next(this.isAuthenticated());
+    });
   }
 
-  showSessionExpiringPopup(){
+  get sessionExpiresIn(): number {
+    return this.user.expires_in;
+  }
+
+  sessionExpiring() {
     this.modalService.open(SessionExpiringComponent);
+  }
+
+  sessionExpired() {
+    this.signOut();
   }
 }
 
